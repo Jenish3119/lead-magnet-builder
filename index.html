@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Lead Magnet Builder</title>
+    <!-- Modern Font: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Phosphor Icons for UI -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-dark">
+    <div class="app-container">
+        <!-- Top Navigation -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="ph ph-magnet"></i>
+                <span>LeadMagnet<span class="highlight">Pro</span></span>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary" id="previewBtn">
+                    <i class="ph ph-desktop"></i> Preview Fullscreen
+                </button>
+                <button class="btn btn-primary" id="publishBtn">
+                    <i class="ph ph-export"></i> Publish & Embed
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="workspace">
+            <!-- Sidebar / Settings Panel -->
+            <aside class="editor-sidebar">
+                <div class="sidebar-tabs">
+                    <button class="tab-btn active" data-tab="content">Content</button>
+                    <button class="tab-btn" data-tab="design">Design</button>
+                </div>
+
+                <div class="tab-content active" id="contentTab">
+                    <div class="input-group">
+                        <label for="headline">Headline</label>
+                        <input type="text" id="headline" value="Unlock Your Free Premium Resource" placeholder="Enter headline here...">
+                    </div>
+                    <div class="input-group">
+                        <label for="subheadline">Subheadline (Copy)</label>
+                        <textarea id="subheadline" rows="3" placeholder="Explain the value proposition...">Join 10,000+ creators who are accelerating their growth. Drop your email below to get instant access to the guide.</textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="ctaText">Button Text (Call to Action)</label>
+                        <input type="text" id="ctaText" value="Get Instant Access" placeholder="e.g., Download Now">
+                    </div>
+                    <div class="input-group">
+                        <label for="successMsg">Success Message</label>
+                        <input type="text" id="successMsg" value="Thanks! Check your email." placeholder="Message after submission">
+                    </div>
+                </div>
+
+                <div class="tab-content" id="designTab">
+                    <div class="input-group">
+                        <label>Primary Brand Color</label>
+                        <div class="color-picker-grid">
+                            <button class="color-btn active" data-color="255, 60%, 55%" style="--swatch: hsl(255, 60%, 55%);"></button>
+                            <button class="color-btn" data-color="330, 80%, 60%" style="--swatch: hsl(330, 80%, 60%);"></button>
+                            <button class="color-btn" data-color="190, 90%, 50%" style="--swatch: hsl(190, 90%, 50%);"></button>
+                            <button class="color-btn" data-color="150, 70%, 45%" style="--swatch: hsl(150, 70%, 45%);"></button>
+                            <button class="color-btn" data-color="30, 90%, 60%" style="--swatch: hsl(30, 90%, 60%);"></button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Layout Style</label>
+                        <select id="layoutSelect">
+                            <option value="split">Split Screen</option>
+                            <option value="centered">Centered Modal</option>
+                        </select>
+                    </div>
+                     <div class="input-group">
+                        <label>Background Theme</label>
+                        <select id="themeSelect">
+                            <option value="dark">Sleek Dark</option>
+                            <option value="light">Clean Light</option>
+                            <option value="glass">Glassmorphism (Image BG)</option>
+                        </select>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Live Preview Canvas -->
+            <section class="preview-canvas">
+                <div class="preview-wrapper" id="previewContainer">
+                    <!-- The generated Lead Magnet layout goes here -->
+                    <div class="lead-magnet-preview layout-split theme-dark" id="leadMagnet">
+                        <div class="lm-image-side">
+                            <div class="lm-mockup">
+                                <i class="ph ph-book-open-text lm-icon"></i>
+                                <span class="lm-badge">FREE GUIDE</span>
+                            </div>
+                        </div>
+                        <div class="lm-content-side">
+                            <h1 class="lm-headline" id="prevHeadline">Unlock Your Free Premium Resource</h1>
+                            <p class="lm-subheadline" id="prevSubheadline">Join 10,000+ creators who are accelerating their growth. Drop your email below to get instant access to the guide.</p>
+                            
+                            <form class="lm-form" id="prevForm" onsubmit="event.preventDefault();">
+                                <div class="lm-input-wrapper">
+                                    <i class="ph ph-envelope-simple"></i>
+                                    <input type="email" placeholder="Enter your email address" required>
+                                </div>
+                                <button type="submit" class="lm-btn" id="prevCta">Get Instant Access</button>
+                            </form>
+                            <p class="lm-privacy"><i class="ph ph-lock-key"></i> We respect your privacy. No spam.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Modal for Publish/Export -->
+        <div class="modal-overlay" id="publishModal">
+            <div class="modal-content glass-panel">
+                <div class="modal-header">
+                    <h2>Publish & Embed Your Form</h2>
+                    <button class="close-btn" id="closeModal"><i class="ph ph-x"></i></button>
+                </div>
+                <div class="modal-body">
+                    <p>Copy the snippet below and paste it into any HTML page or website builder like Webflow, WordPress, or Framer.</p>
+                    <div class="code-editor">
+                        <pre><code id="embedCode">&lt;!-- Generated Embed Code will appear here --&gt;</code></pre>
+                        <button class="copy-btn" id="copyCodeBtn"><i class="ph ph-copy"></i> Copy Code</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
